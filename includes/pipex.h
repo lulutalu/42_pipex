@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 23:42:21 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/03/29 20:52:49 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/03/30 15:58:46 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,12 @@ typedef struct s_fd
 
 typedef struct s_pars
 {
-	char	**env;
 	int		i;
 	char	**split;
-	char	*cmd;
-	char	**arg;
-	char	*path;
 	char	**exec;
+	char	**arg;
+	char	*cmd;
+	char	*path;
 	char	*temp;
 }				t_pars;
 

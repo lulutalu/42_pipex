@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 16:40:08 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/03/29 20:52:47 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/03/30 19:19:11 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,56 @@
 
 void	parsing_env(t_pars *pars, char **envp)
 {
-	int	ret;
-	int	test;
-
-	test = 0;
-	pars->i = 0;
-	while (ft_strnstr(pars->env[pars->i], "PATH=", 5) == NULL)
-		pars->i++;
-	pars->arg = ft_calloc(3, sizeof(char *));
-	pars->split = ft_split(pars->cmd, ' ');
-	pars->arg[0] = ft_strdup(pars->split[0]);
-	pars->arg[1] = ft_strdup(pars->split[1]);
+	if (ft_strchr(pars->cmd, '{') != NULL)
+	{
+		pars->split = ft_split(pars->cmd, ' ');
+		pars->arg = ft_calloc(3, sizeof(char **));
+		pars->arg[0] = ft_strdup(pars->split[0]);
+		pars->arg[1] = ft_substr(pars->cmd, ft_strlen(pars->arg[0]) + 1, ft_strlen(pars->cmd));
+	}
+	else
+	{
+		pars->split = ft_split(pars->cmd, ' ');
+		pars->i = 0;
+		while (pars->split[pars->i] != NULL)
+			pars->i++;
+		pars->arg = ft_calloc(pars->i + 1, sizeof(char **));
+		pars->i = 0;
+		while (pars->split[pars->i] != NULL)
+		{
+			pars->arg[pars->i] = ft_strdup(pars->split[pars->i]);
+			pars->i++;
+		}
+	}
 	free_tab((void **)pars->split);
-	pars->path = pars->env[pars->i];
+	//////////////////////////////////////////////////////////////////////////
+	pars->i = 0;
+	while (ft_strnstr(envp[pars->i], "PATH=", 5) == NULL)
+		pars->i++;
+	pars->path = ft_substr(envp[pars->i], 5, ft_strlen(envp[pars->i]) - 5);
 	pars->split = ft_split(pars->path, ':');
-	free_tab((void **)pars->env);
+	free(pars->path);
+	//////////////////////////////////////////////////////////////////////////
 	pars->i = 0;
 	while (pars->split[pars->i] != NULL)
 	{
 		pars->temp = ft_strjoin(pars->split[pars->i], "/");
 		pars->path = ft_strjoin(pars->temp, pars->arg[0]);
-		ret = access(pars->path, X_OK);
-		if (ret == 0)
+		if (access(pars->path, X_OK) == 0)
 		{
-			execve(pars->temp, pars->arg, envp);
+		/*	ft_putstr_fd_count(pars->path, 2);
+			ft_putchar_fd_count('\n', 2);
+			pars->i = 0;
+			while (pars->arg[pars->i] != NULL)
+			{
+				ft_putstr_fd_count(pars->arg[pars->i++], 2);
+				ft_putchar_fd_count('\n', 2);
+			}*/
+			execve(pars->path, pars->arg, envp);
+			perror("Exec failed ");
 		}
-		free(pars->path);
 		pars->i++;
 	}
-	free_tab((void **)pars->split);
-	exit_error("");
+	//////////////////////////////////////////////////////////////////////////
+	perror("Exec failed ");
 }
