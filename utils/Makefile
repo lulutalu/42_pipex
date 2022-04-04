@@ -6,7 +6,7 @@
 #    By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/29 00:27:49 by lduboulo          #+#    #+#              #
-#    Updated: 2022/04/04 11:23:46 by lduboulo         ###   ########.fr        #
+#    Updated: 2022/04/04 13:09:42 by lduboulo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ ORANGE	= \033[1;33m
 GREY	= \033[1;90m
 BUILD	= \e[38;5;225m
 SEP		= \e[38;5;120m
+DUCK	= \e[38;5;227m
 RESET	= \033[0m
 
 # COLORS
@@ -57,25 +58,29 @@ all:		${NAME}
 
 ${NAME}:	${O_DIR} ${OBJS}
 			@printf "\n${TSEP}\n"
-			@printf "\n${GREEN}💻 Successfully compiled ${NAME} .o's${RESET} ✅\n"
+			@printf "\n${GREEN} 💻 Successfully compiled ${NAME} .o's${RESET} ✅\n"
 			@${AR} ${NAME} ${OBJS}
-			@printf "${GREEN}💻 Successfully created ${NAME} library${RESET} ✅\n\n"
+			@printf "${GREEN} 💻 Successfully created ${NAME} library${RESET} ✅\n\n"
 
 ${O_DIR}:
 			@${MKDIR} ${O_DIR}
 
 ${O_DIR}%.o:${SRCS_DIR}%.c
 			@${CC} ${CFLAGS} -I${HEADS_DIR} -o $@ -c $<
-			@printf "\e[1K\r${BUILD}🚧 $@ from $<${RESET}"
+			@printf "\e[1K\r${BUILD} 🚧 $@ from $<${RESET}"
 
 clean :
 			@${RM} ${O_DIR}
-			@printf "${RED}🧹 Deleted ${NAME} .o's${RESET} ❌\n"
+			@printf "${RED} 🧹 Deleted ${NAME} .o's${RESET} ❌\n"
 
 fclean : clean
 			@${RM} ${NAME}
-			@printf "\n${RED}💥 Deleted ${NAME} files${RESET} ❌\n\n"
+			@printf "\n${RED} 💥 Deleted ${NAME} files${RESET} ❌\n\n"
 
 re : fclean all
 
-.PHONY : all clean fclean re
+norm :
+			@printf "${DUCK} 🐥 Checking Norm for ${NAME}${RESET}\n"
+			@norminette ${SRCS}
+
+.PHONY : all clean fclean re norm
