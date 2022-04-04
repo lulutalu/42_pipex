@@ -6,13 +6,13 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 16:40:08 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/03/30 19:19:11 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/03/31 19:11:51 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../includes/pipex.h"
 
-void	parsing_env(t_pars *pars, char **envp)
+int	parsing_env(t_pars *pars, char **envp)
 {
 	if (ft_strchr(pars->cmd, '{') != NULL)
 	{
@@ -47,8 +47,13 @@ void	parsing_env(t_pars *pars, char **envp)
 	pars->i = 0;
 	while (pars->split[pars->i] != NULL)
 	{
-		pars->temp = ft_strjoin(pars->split[pars->i], "/");
-		pars->path = ft_strjoin(pars->temp, pars->arg[0]);
+		if (ft_strchr(pars->arg[0], '/') == NULL)
+		{
+			pars->temp = ft_strjoin(pars->split[pars->i], "/");
+			pars->path = ft_strjoin(pars->temp, pars->arg[0]);
+		}
+		else
+			pars->path = pars->arg[0];
 		if (access(pars->path, X_OK) == 0)
 		{
 		/*	ft_putstr_fd_count(pars->path, 2);
@@ -60,10 +65,16 @@ void	parsing_env(t_pars *pars, char **envp)
 				ft_putchar_fd_count('\n', 2);
 			}*/
 			execve(pars->path, pars->arg, envp);
-			perror("Exec failed ");
 		}
 		pars->i++;
 	}
-	//////////////////////////////////////////////////////////////////////////
-	perror("Exec failed ");
+	if (ft_strchr(pars->cmd, '/') == NULL)
+		exit_error(127);
+	else if (pars->arg[1] != NULL)
+	{
+		if (ft_strchr(pars->arg[1], '/') != NULL)
+			exit_error(127);
+	}
+	exit_error(1);
+	return (0);
 }

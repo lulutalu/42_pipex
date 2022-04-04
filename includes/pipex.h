@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 23:42:21 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/03/30 15:58:46 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/04/04 11:21:56 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 */
 
 # include "pipex.h"
-# include "ft_printf.h"
+# include "utils.h"
 # include "get_next_line.h"
 
 /*
@@ -75,7 +75,7 @@ typedef struct s_pars
  * Errors and Memory Functions
 */
 
-void	exit_error(char *error);
+void	exit_error(int status);
 void	free_tab(void **mem);
 
 /*
@@ -89,6 +89,6 @@ void	scnd_child(t_fd *fd, t_pars *pars, char **envp);
  * Parsing Functions
 */
 
-void	parsing_env(t_pars *pars, char **envp);
+int		parsing_env(t_pars *pars, char **envp);
 
 #endif

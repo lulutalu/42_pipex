@@ -6,7 +6,7 @@
 #    By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/27 18:29:51 by lduboulo          #+#    #+#              #
-#    Updated: 2022/03/29 19:05:24 by lduboulo         ###   ########.fr        #
+#    Updated: 2022/04/04 11:25:47 by lduboulo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ ${NAME}:	${O_DIR} ${OBJS}
 			@${MAKELIB} ${LIBUTILS}
 			@printf "${TSEP}\n"
 			@printf "\n${GREEN}💻 Successfully compiled ${NAME} .o's${RESET} ✅\n"
-			@${CC} ${CFLAGS} -o ${NAME} ${OBJS} ${LIBUTILS}/libprintf.a
+			@${CC} ${CFLAGS} -o ${NAME} ${OBJS} ${LIBUTILS}/libutils.a
 			@printf "${GREEN}💻 Successfully created ${NAME} executable${RESET} ✅\n"
 			@printf "\n${TSEP}\n"
 
@@ -83,5 +83,8 @@ fclean : clean
 			@printf "${RED}💥 Deleted ${NAME} files${RESET} ❌\n\n"
 
 re : fclean all
+
+norm :
+			@norminette ${SRCS}
 
 .PHONY : all clean fclean re

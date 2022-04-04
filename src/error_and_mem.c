@@ -6,19 +6,17 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 04:57:11 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/03/29 19:25:48 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/03/31 19:11:49 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../includes/pipex.h"
 
-void	exit_error(char *error)
+void	exit_error(int status)
 {
-	if (ft_strncmp(error, "", 2) == 0)
-		perror("\e[1;91mError \e[0m");
-	else
-		ft_putstr_fd_count(error, 2);
-	exit(EXIT_FAILURE);
+	if (status == 127)
+		ft_putstr_fd_count("command not found\n", 2);
+	exit(status);
 }
 
 void	free_tab(void **mem)

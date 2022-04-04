@@ -6,7 +6,7 @@
 #    By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/29 00:27:49 by lduboulo          #+#    #+#              #
-#    Updated: 2022/03/30 18:27:50 by lduboulo         ###   ########.fr        #
+#    Updated: 2022/04/04 11:23:46 by lduboulo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,13 +24,11 @@ RESET	= \033[0m
 
 
 SRCS_DIR	= ./src/
-SRCS_FILES	= core_process.c ft_bzero.c ft_calloc.c ft_itoa_base.c \
-              ft_printf.c ft_putchar_fd_count.c ft_putnbr_fd_count.c \
-              ft_putstr_fd_count.c ft_strdup.c ft_strlen.c hexa_process.c \
-              if_forest.c pointer_address_process.c string_process.c \
-              struct_init.c variable_counter.c ft_strncmp.c ft_split.c \
-			  ft_strnstr.c get_next_line.c get_next_line_utils.c \
-			  ft_strjoin.c ft_substr.c ft_strchr.c
+SRCS_FILES	= ft_bzero.c ft_calloc.c ft_itoa_base.c \
+			  ft_putchar_fd_count.c ft_putnbr_fd_count.c \
+              ft_putstr_fd_count.c ft_strdup.c ft_strlen.c\
+			  ft_strncmp.c ft_split.c ft_strnstr.c get_next_line.c \
+			  get_next_line_utils.c ft_strjoin.c ft_substr.c ft_strchr.c
 
 SRCS		:= ${patsubst %, ${SRCS_DIR}%, ${SRCS_FILES}}
 
@@ -42,7 +40,7 @@ OBJS		:= ${patsubst %, ${O_DIR}%, ${OBJS_FILES}}
 
 HEADS_DIR	= ./../includes/
 
-NAME		= libprintf.a
+NAME		= libutils.a
 
 MAKELIB		= ${MAKE} -C
 CC			= gcc

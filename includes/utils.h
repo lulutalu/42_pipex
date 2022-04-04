@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 16:06:52 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/03/30 18:22:10 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/04/04 11:17:58 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#ifndef UTILS_H
+# define UTILS_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 4
 # endif
 
-# include "ft_printf.h"
+# include "utils.h"
 # include "get_next_line.h"
 # include "pipex.h"
 # include <stdarg.h>
@@ -25,25 +25,6 @@
 # include <stddef.h>
 # include <stdlib.h>
 
-typedef struct printf_list
-{
-	int		count;
-	int		i;
-	va_list	arg;
-	char	*str;
-	int		nbvar;
-	char	*param;
-	int		iparam;
-}				t_printf;
-
-void	core_process(t_printf *ptr, const char *input);
-void	hexa_process(t_printf *ptr, int flag);
-void	string_process(t_printf *ptr);
-void	pointer_address_process(t_printf *ptr);
-void	variable_counter(t_printf *ptr, const char *input);
-void	struct_init(t_printf *ptr);
-void	if_forest(const char *input, t_printf *ptr);
-int		ft_printf(const char *input, ...);
 void	*ft_calloc(size_t count, size_t size);
 void	ft_putnbr_fd_count(long n, int fd, int *count);
 char	*ft_strdup(const char *s1);
