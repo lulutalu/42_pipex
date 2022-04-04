@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 00:14:16 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/04/04 11:27:53 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/04/04 12:37:41 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,37 +19,21 @@ int	main(int argc, char **argv, char **envp)
 	t_pid	scnd;
 	t_pars	pars;
 
-	if (argc == 5)
-	{
-		fd.input = open(argv[1], O_RDONLY);
-		fd.outfile = open(argv[4], O_RDWR | O_CREAT | O_TRUNC, 0644);
-		if (fd.outfile < 0 || fd.input < 0)
-			ft_putstr_fd_count("No such file or directory\n", 2);
-		if (pipe(fd.io) < 0)
-			exit_error(0);
-		pars.cmd = argv[2];
-		first.pid = fork();
-		if (first.pid < 0)
-			exit_error(0);
-		if (first.pid == 0)
-    		first_child(&fd, &pars, envp);
-		pars.cmd = argv[3];
-		scnd.pid = fork();
-		if (scnd.pid < 0)
-			exit_error(0);
-		if (scnd.pid == 0)
-			scnd_child(&fd, &pars, envp);
-		close(fd.io[FD_IN]);
-		close(fd.io[FD_OU]);
-		waitpid(first.pid, &first.status, 0);
-		waitpid(scnd.pid, &scnd.status, 0);
-		if (WIFEXITED(scnd.status) != 0)
-			exit(WEXITSTATUS(scnd.status));
-		exit(0);
-	}
-	else
-	{
-		ft_putstr_fd_count(N_ARGS, 2);
-		exit_error(1);
-	}
+	number_arg_check(argc);
+	start_fd_open(&fd, argv[1], argv[4]);
+	check_for_error(pipe(fd.io));
+	first.pid = fork();
+	check_for_error(first.pid);
+	if (first.pid == 0)
+		first_child(&fd, &pars, envp, argv[2]);
+	scnd.pid = fork();
+	check_for_error(scnd.pid);
+	if (scnd.pid == 0)
+		scnd_child(&fd, &pars, envp, argv[3]);
+	end_fd_close(&fd);
+	waitpid(first.pid, &first.status, 0);
+	waitpid(scnd.pid, &scnd.status, 0);
+	if (WIFEXITED(scnd.status) != 0)
+		exit(WEXITSTATUS(scnd.status));
+	exit(0);
 }

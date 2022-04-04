@@ -6,7 +6,7 @@
 #    By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/27 18:29:51 by lduboulo          #+#    #+#              #
-#    Updated: 2022/04/04 11:25:47 by lduboulo         ###   ########.fr        #
+#    Updated: 2022/04/04 12:35:52 by lduboulo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ RESET	= \033[0m
 
 
 SRCS_DIR	= ./src/
-SRCS_FILES	= main.c error_and_mem.c child_process.c parsing.c
+SRCS_FILES	= main.c error_and_mem.c child_process.c parsing.c fd_functions.c
 
 SRCS		:= ${patsubst %, ${SRCS_DIR}%, ${SRCS_FILES}}
 

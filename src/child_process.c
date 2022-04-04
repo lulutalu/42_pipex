@@ -6,14 +6,15 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:57:49 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/04/04 11:34:46 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/04/04 12:32:21 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../includes/pipex.h"
 
-void	first_child(t_fd *fd, t_pars *pars, char **envp)
+void	first_child(t_fd *fd, t_pars *pars, char **envp, char *cmd)
 {
+	pars->cmd = cmd;
 	fd->input = dup2(fd->input, STDIN_FILENO);
 	fd->output = dup2(fd->io[FD_IN], STDOUT_FILENO);
 	if (fd->input < 0 || fd->output < 0)
@@ -22,8 +23,9 @@ void	first_child(t_fd *fd, t_pars *pars, char **envp)
 	exit_error(parsing_env(pars, envp));
 }
 
-void	scnd_child(t_fd *fd, t_pars *pars, char **envp)
+void	scnd_child(t_fd *fd, t_pars *pars, char **envp, char *cmd)
 {
+	pars->cmd = cmd;
 	fd->input = dup2(fd->io[FD_OU], STDIN_FILENO);
 	close(fd->io[FD_IN]);
 	fd->output = dup2(fd->outfile, STDOUT_FILENO);

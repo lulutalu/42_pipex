@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 23:42:21 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/04/04 11:21:56 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/04/04 12:37:40 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,22 @@ typedef struct s_pars
 
 void	exit_error(int status);
 void	free_tab(void **mem);
+void	check_for_error(int value);
+void	number_arg_check(int argc);
+
+/*
+ * File descriptor opening and closing
+*/
+
+void	end_fd_close(t_fd *fd);
+void	start_fd_open(t_fd *fd, char *in, char *out);
 
 /*
  * Fork Functions
 */
 
-void	first_child(t_fd *fd, t_pars *pars, char **envp);
-void	scnd_child(t_fd *fd, t_pars *pars, char **envp);
+void	first_child(t_fd *fd, t_pars *pars, char **envp, char *cmd);
+void	scnd_child(t_fd *fd, t_pars *pars, char **envp, char *cmd);
 
 /*
  * Parsing Functions

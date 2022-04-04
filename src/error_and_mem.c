@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 04:57:11 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/03/31 19:11:49 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/04/04 12:37:42 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,19 @@ void	free_tab(void **mem)
 	while (i > 0)
 		free(mem[i--]);
 	free(mem);
+}
+
+void	check_for_error(int value)
+{
+	if (value < 0)
+		exit_error(0);
+}
+
+void	number_arg_check(int argc)
+{
+	if (argc != 5)
+	{
+		ft_putstr_fd_count(N_ARGS, 2);
+		exit_error(1);
+	}
 }
