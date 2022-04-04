@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 23:42:21 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/04/04 12:37:40 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/04/04 12:55:19 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,8 @@ void	scnd_child(t_fd *fd, t_pars *pars, char **envp, char *cmd);
 */
 
 int		parsing_env(t_pars *pars, char **envp);
+void	arg_tab_exec_fill(t_pars *pars);
+void	split_path_line(t_pars *pars, char **envp);
+void	error_flag_select(t_pars *pars);
 
 #endif
