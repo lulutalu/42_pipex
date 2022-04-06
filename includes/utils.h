@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 16:06:52 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/04/04 11:17:58 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/04/04 18:20:25 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 
 # include "utils.h"
 # include "get_next_line.h"
-# include "pipex.h"
 # include <stdarg.h>
 # include <limits.h>
 # include <stddef.h>

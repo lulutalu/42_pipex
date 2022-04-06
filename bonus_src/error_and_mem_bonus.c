@@ -1,30 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fd_functions.c                                     :+:      :+:    :+:   */
+/*   error_and_mem_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/04 12:34:03 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/04/04 17:21:27 by lduboulo         ###   ########.fr       */
+/*   Created: 2022/04/04 17:20:23 by lduboulo          #+#    #+#             */
+/*   Updated: 2022/04/05 15:19:41 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex.h"
+#include "./../includes/pipex_bonus.h"
 
-void	start_fd_open(t_fd *fd, char *in, char *out)
+void	exit_error(int status)
 {
-	fd->input = open(in, O_RDONLY);
-	fd->outfile = open(out, O_RDWR | O_CREAT | O_TRUNC, 0644);
-	if (fd->outfile < 0 || fd->input < 0)
-		ft_putstr_fd_count("No such file or directory\n", 2);
+	if (status == 127)
+		ft_putstr_fd_count("command not found\n", 2);
+	exit(status);
 }
 
-void	end_fd_close(t_fd *fd)
+void	free_tab(void **mem)
 {
-	close(fd->input);
-	close(fd->output);
-	close(fd->outfile);
-	close(fd->io[FD_IN]);
-	close(fd->io[FD_OU]);
+	int	i;
+
+	i = 0;
+	while (mem[i] != NULL)
+		i++;
+	while (i > 0)
+		free(mem[i--]);
+	free(mem);
+}
+
+void	check_for_error(int value)
+{
+	if (value < 0)
+		exit_error(0);
 }
