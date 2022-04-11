@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:20:23 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/04/05 15:19:41 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/04/11 21:07:38 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	exit_error(int status)
 {
 	if (status == 127)
 		ft_putstr_fd_count("command not found\n", 2);
+	else
+		perror(NULL);
 	exit(status);
 }
 
@@ -34,5 +36,5 @@ void	free_tab(void **mem)
 void	check_for_error(int value)
 {
 	if (value < 0)
-		exit_error(0);
+		exit(0);
 }

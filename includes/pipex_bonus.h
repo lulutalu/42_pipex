@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:15:47 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/04/06 15:37:47 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/04/11 23:29:58 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,14 @@ typedef struct s_pid
 typedef struct s_fd
 {
 	int		io[2];
+	int		new_io[2];
 	int		input;
+	int		infile;
 	int		output;
 	int		outfile;
-	int		argc;
-	int		n;
+	int		icmd;
+	int		ncmd;
+	int		npipe;
 }				t_fd;
 
 typedef struct s_pars
@@ -86,13 +89,15 @@ void	check_for_error(int value);
 */
 
 void	end_fd_close(t_fd *fd);
+void	pipe_close(int fd1, int fd2);
 
 /*
  * Fork Functions
 */
 
 void	child_process(t_fd *fd, char **envp, char *cmd);
-void	exec_child(t_fd *fd, t_pars *pars, char **envp);
+void	pipe_or_not(t_fd *fd);
+void	wich_pipe_are_you(t_fd *fd);
 
 /*
  * Parsing Functions

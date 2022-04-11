@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:19:55 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/04/06 15:56:30 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/04/11 23:30:44 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,61 @@
 void	child_process(t_fd *fd, char **envp, char *cmd)
 {
 	t_pars	pars;
+	t_pid	child;
 
 	pars.cmd = ft_strdup(cmd);
-	if (fd->n == 2)
+	pipe_or_not(fd);
+	child.pid = fork();
+	if (child.pid == 0)
 	{
-		fd->input = dup2(fd->input, STDIN_FILENO);
-		fd->output = dup2(fd->io[FD_IN], STDOUT_FILENO);
-		close(fd->io[FD_OU]);
-		exec_child(fd, &pars, envp);
+		wich_pipe_are_you(fd);
+		check_for_error(fd->input);
+		check_for_error(fd->output);
+		exit_error(parsing_env(&pars, envp));
 	}
-	if (fd->n == fd->argc - 2)
+	else
 	{
-		fd->input = dup2(fd->io[FD_OU], STDIN_FILENO);
-		close(fd->io[FD_IN]);
-		fd->output = dup2(fd->outfile, STDOUT_FILENO);
-		exec_child(fd, &pars, envp);
+		if (fd->icmd != 2)
+		{
+			pipe_close(fd->io[FD_IN], fd->io[FD_OU]);
+			fd->io[FD_IN] = fd->new_io[FD_IN];
+			fd->io[FD_OU] = fd->new_io[FD_OU];
+		}
 	}
 }
 
-void	exec_child(t_fd *fd, t_pars *pars, char **envp)
+void	wich_pipe_are_you(t_fd *fd)
 {
-	check_for_error(fd->input);
-	check_for_error(fd->output);
-	exit_error(parsing_env(pars, envp));
+	if (fd->icmd == 2)
+	{
+		fd->input = dup2(fd->infile, 0);
+		fd->output = dup2(fd->io[FD_IN], 1);
+		pipe_close(fd->io[FD_OU], -1);
+	}
+	else if (fd->icmd == fd->ncmd + 1)
+	{
+		fd->input = dup2(fd->io[FD_OU], 0);
+		fd->output = dup2(fd->outfile, 1);
+		pipe_close(fd->io[FD_IN], -1);
+	}
+	else
+	{
+		fd->input = dup2(fd->io[FD_OU], 0);
+		fd->output = dup2(fd->new_io[FD_IN], 1);
+		pipe_close(fd->io[FD_IN], fd->new_io[FD_OU]);
+	}
+}
+
+void	pipe_or_not(t_fd *fd)
+{
+	if (fd->icmd == 2)
+	{
+		check_for_error(pipe(fd->io));
+		fd->npipe--;
+	}
+	else if (fd->npipe > 0)
+	{
+		check_for_error(pipe(fd->new_io));
+		fd->npipe--;
+	}
 }

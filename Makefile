@@ -6,7 +6,7 @@
 #    By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/27 18:29:51 by lduboulo          #+#    #+#              #
-#    Updated: 2022/04/04 22:26:47 by lduboulo         ###   ########.fr        #
+#    Updated: 2022/04/11 23:30:29 by lduboulo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,7 +84,7 @@ ${O_DIR}%.o:${SRCS_DIR}%.c
 				@${CC} ${CFLAGS} -I${HEADS_DIR} -o $@ -c $<
 				@printf "\e[1K\r${BUILD} 🚧 $@ from $<${RESET}"
 
-bonus:			${BONUS_DIR} ${B_OBJS}
+bonus:			fclean ${BONUS_DIR} ${B_OBJS}
 				@printf "\n"
 				@${MAKELIB} ${LIBUTILS}
 				@printf "${TSEP}\n"
