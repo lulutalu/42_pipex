@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:20:23 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/04/11 21:07:38 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/04/14 16:17:43 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,11 @@ void	check_for_error(int value)
 {
 	if (value < 0)
 		exit(0);
+}
+
+void	free_here_doc(t_doc *doc)
+{
+	free(doc->limiter);
+	free(doc->here_doc);
+	free(doc->buf);
 }

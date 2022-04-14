@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 15:24:30 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/04/14 15:39:22 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/04/14 16:17:43 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ void	here_doc_process(t_doc *doc, t_fd *fd, char **envp, char **argv)
 		if (doc->doc_child.pid == 0)
 			here_doc_scnd_child(fd, envp, argv[4]);
 		end_fd_close(fd);
+		free_here_doc(doc);
 		exit(0);
 	}
 	doc->here_doc = ft_dyn_strjoin(doc->here_doc, doc->buf);
+	free(doc->buf);
 }

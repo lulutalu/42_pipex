@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:15:47 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/04/14 15:39:21 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/04/14 15:59:59 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct s_doc
 void	exit_error(int status);
 void	free_tab(void **mem);
 void	check_for_error(int value);
+void	free_here_doc(t_doc *doc);
 
 /*
  * File descriptor opening and closing

@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:19:55 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/04/14 15:23:32 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/04/14 15:54:09 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	child_process(t_fd *fd, char **envp, char *cmd)
 	}
 	else
 	{
+		free(pars.cmd);
 		if (fd->icmd != 2)
 		{
 			pipe_close(fd->io[FD_IN], fd->io[FD_OU]);

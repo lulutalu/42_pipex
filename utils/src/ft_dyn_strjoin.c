@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:38:24 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/04/12 17:37:28 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/04/14 16:14:53 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ char	*ft_dyn_strjoin(char *dynstr, char const *s2)
 	while (s2[i2] != '\0')
 		res[ires++] = s2[i2++];
 	res[ires] = '\0';
+	free(dynstr);
 	return (res);
 }

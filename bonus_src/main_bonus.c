@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:17:40 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/04/14 15:39:22 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/04/14 16:17:45 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,9 @@ int	main(int argc, char **argv, char **envp)
 	{
 		doc.limiter = ft_strjoin(argv[2], "\n");
 		doc.here_doc = ft_calloc(1, sizeof(char));
-		doc.buf = ft_calloc(1, sizeof(char));
 		fd.outfile = open(argv[argc - 1], O_RDWR | O_CREAT | O_APPEND, 0644);
 		check_for_error(fd.outfile);
-		while (doc.buf != NULL)
+		while (1)
 			here_doc_process(&doc, &fd, envp, argv);
 	}
 	else
