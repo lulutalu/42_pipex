@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:15:47 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/04/12 19:04:24 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/04/14 15:39:21 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,14 @@ typedef struct s_pars
 	char	*temp;
 }				t_pars;
 
+typedef struct s_doc
+{
+	char	*buf;
+	char	*here_doc;
+	char	*limiter;
+	t_pid	doc_child;
+}				t_doc;
+
 /*
  * Errors and Memory Functions
 */
@@ -92,12 +100,26 @@ void	end_fd_close(t_fd *fd);
 void	pipe_close(int fd1, int fd2);
 
 /*
- * Fork Functions
+ * Fork Functions multi pipes
 */
 
 void	child_process(t_fd *fd, char **envp, char *cmd);
 void	pipe_or_not(t_fd *fd);
 void	wich_pipe_are_you(t_fd *fd);
+
+/*
+ * Fork Functions here_doc
+*/
+
+void	here_doc_first_child(t_fd *fd, char **envp, char *cmd);
+void	here_doc_scnd_child(t_fd *fd, char **envp, char *cmd);
+
+/*
+ * Main operations sub-functions
+*/
+
+void	multi_pipes_process(t_fd *fd, char **envp, char **argv, int argc);
+void	here_doc_process(t_doc *doc, t_fd *fd, char **envp, char **argv);
 
 /*
  * Parsing Functions

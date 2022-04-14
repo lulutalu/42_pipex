@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:19:55 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/04/11 23:30:44 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/04/14 15:23:32 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,30 @@ void	pipe_or_not(t_fd *fd)
 		check_for_error(pipe(fd->new_io));
 		fd->npipe--;
 	}
+}
+
+void	here_doc_first_child(t_fd *fd, char **envp, char *cmd)
+{
+	t_pars	doc_pars;
+
+	fd->input = dup2(fd->io[FD_OU], 0);
+	fd->output = dup2(fd->new_io[FD_IN], 1);
+	pipe_close(fd->io[FD_IN], fd->new_io[FD_OU]);
+	check_for_error(fd->input);
+	check_for_error(fd->output);
+	doc_pars.cmd = ft_strdup(cmd);
+	exit_error(parsing_env(&doc_pars, envp));
+}
+
+void	here_doc_scnd_child(t_fd *fd, char **envp, char *cmd)
+{
+	t_pars	doc_pars;
+
+	fd->input = dup2(fd->io[FD_OU], 0);
+	fd->output = dup2(fd->outfile, 1);
+	pipe_close(fd->io[FD_IN], -1);
+	check_for_error(fd->input);
+	check_for_error(fd->output);
+	doc_pars.cmd = ft_strdup(cmd);
+	exit_error(parsing_env(&doc_pars, envp));
 }

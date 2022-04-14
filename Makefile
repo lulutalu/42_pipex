@@ -6,7 +6,7 @@
 #    By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/27 18:29:51 by lduboulo          #+#    #+#              #
-#    Updated: 2022/04/11 23:30:29 by lduboulo         ###   ########.fr        #
+#    Updated: 2022/04/14 15:32:56 by lduboulo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRCS			:= ${patsubst %, ${SRCS_DIR}%, ${SRCS_FILES}}
 
 BONUS_SRCS_DIR	= ./bonus_src/
 BONUS_FILES 	= main_bonus.c child_process_bonus.c error_and_mem_bonus.c \
-				  fd_functions_bonus.c parsing_bonus.c
+				  fd_functions_bonus.c parsing_bonus.c main_operation.c
 
 
 BONUS_SRCS		:= ${patsubst %, ${BONUS_SRCS_DIR}%, ${BONUS_FILES}}
