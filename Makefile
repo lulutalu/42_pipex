@@ -6,7 +6,7 @@
 #    By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/27 18:29:51 by lduboulo          #+#    #+#              #
-#    Updated: 2022/04/14 15:32:56 by lduboulo         ###   ########.fr        #
+#    Updated: 2022/04/14 15:47:15 by lduboulo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ RESET	= \033[0m
 
 
 SRCS_DIR		= ./src/
-SRCS_FILES		= main.c error_and_mem.c child_process.c parsing.c fd_functions.c
+SRCS_FILES		= main.c error_and_mem.c child_process.c parsing.c \
+				  fd_functions.c
 
 SRCS			:= ${patsubst %, ${SRCS_DIR}%, ${SRCS_FILES}}
 
@@ -119,4 +120,9 @@ norm :
 				@norminette ${BONUS_SRCS}
 				@norminette ${HEADS_DIR}
 
-.PHONY : all clean fclean re norm bonus
+help :
+				@printf "\e[1m\nFor mandatory part, binary call: ./pipex infile cmd1 cmd2 outfile\n\n${RESET}"
+				@printf "\e[1mFor bonus part, binary call: ./pipex infile cmd cmd2 ... cmdn outfile\n\n${RESET}"
+				@printf "\e[1mFor here_doc, binary call: ./pipex here_doc limiter cmd1 cmd2 outfile\n\n${RESET}"
+
+.PHONY : all clean fclean re norm bonus help
